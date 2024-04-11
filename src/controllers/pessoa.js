@@ -9,6 +9,10 @@ class ControllerExercicio {
 
         const result = await servico.PegarUm(id)
         
+        if (!result) {
+          res.status(404).json({ message: "Registro não encontrado!"});
+          return
+        }
         res.status(200).json(result);
       } catch (error) {
         console.log(error)
@@ -28,7 +32,7 @@ class ControllerExercicio {
 
     async Adicionar(req, res){
       try {
-        const { pessoa } = req.body
+        const pessoa = req.body
 
         await servico.Adicionar(pessoa)
         

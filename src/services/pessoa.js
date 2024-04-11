@@ -5,13 +5,15 @@ class ServicoExercicio {
 
     async PegarUm(id){
       if(!id || isNaN(id)) {
-        throw new Error("Favor corretamente o id.")
+        throw new Error("Favor informe corretamente o id.")
       }
       return repositorio.PegarUm(id)
     }
 
     async PegarTodos(){
-      return repositorio.PegarTodos()
+
+      const result = await repositorio.PegarTodos()
+      return result.length > 0 ? result : "Nenhum registro encontrado."
     }
 
     async Adicionar(pessoa){
@@ -30,7 +32,7 @@ class ServicoExercicio {
 
     async Alterar(id, pessoa){
       if(!id || isNaN(id)) {
-        throw new Error("Favor corretamente o id.")
+        throw new Error("Favor informar corretamente o id.")
       }
 
       return repositorio.Adicionar(pessoa)
@@ -38,7 +40,12 @@ class ServicoExercicio {
 
     async Deletar(id){
       if(!id || isNaN(id)) {
-        throw new Error("Favor corretamente o id.")
+        throw new Error("Favor informar corretamente o id.")
+      }
+      const pessoa = await repositorio.PegarUm(id)
+      
+      if(!pessoa) {
+        throw new Error("Pessoa não encontrada.")
       }
 
       return repositorio.Deletar(id)
