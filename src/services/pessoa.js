@@ -18,13 +18,13 @@ class ServicoExercicio {
 
     async Adicionar(pessoa){
       if(!pessoa) {
-        throw new Error("Favor preencher o pessoa.")
+        throw new Error("Favor preencher a pessoa.")
       } else if(!pessoa.nome) {
         throw new Error("Favor preencher o nome.")
       } else if(!pessoa.email) {
         throw new Error("Favor preencher o email.")
       } else if(!pessoa.senha) {
-        throw new Error("Favor preencher o senha.")
+        throw new Error("Favor preencher a senha.")
       }
 
       return repositorio.Adicionar(pessoa)
