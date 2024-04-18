@@ -35,7 +35,7 @@ class ServicoExercicio {
         throw new Error("Favor informar corretamente o id.")
       }
 
-      return repositorio.Adicionar(pessoa)
+      return repositorio.Alterar(id,pessoa)
     }
 
     async Deletar(id){
