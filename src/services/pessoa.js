@@ -16,18 +16,20 @@ class ServicoExercicio {
       return result.length > 0 ? result : "Nenhum registro encontrado."
     }
 
-    async Adicionar(pessoa) {
-      if (!pessoa || !pessoa.nome || !pessoa.email || !pessoa.senha || !pessoa.id) {
-        throw new Error("Favor preencher todos os campos.");
+    async Adicionar(pessoa){
+      if(!pessoa) {
+        throw new Error("Favor preencher a pessoa.")
+      } else if(!pessoa.nome) {
+        throw new Error("Favor preencher o nome.")
+      } else if(!pessoa.email) {
+        throw new Error("Favor preencher o email.")
+      } else if(!pessoa.senha) {
+        throw new Error("Favor preencher a senha.")
       }
-    
-      if (isNaN(pessoa.id)) {
-        throw new Error("O ID deve ser um número.");
-      }
-    
-      return repositorio.Adicionar(pessoa);
+
+      return repositorio.Adicionar(pessoa)
     }
-    
+
     async Alterar(id, pessoa){
       if(!id || isNaN(id)) {
         throw new Error("Favor informar corretamente o id.")
