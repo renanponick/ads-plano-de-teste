@@ -27,6 +27,10 @@ class ServicoExercicio {
         throw new Error("Favor preencher a senha.")
       }
 
+      pessoa.nome = pessoa.nome.trim();
+      pessoa.email = pessoa.email.trim();
+      pessoa.senha = pessoa.senha.trim();
+
       return repositorio.Adicionar(pessoa)
     }
 
@@ -34,6 +38,10 @@ class ServicoExercicio {
       if(!id || isNaN(id)) {
         throw new Error("Favor informar corretamente o id.")
       }
+
+      pessoa.nome = pessoa.nome.trim();
+      pessoa.email = pessoa.email.trim();
+      pessoa.senha = pessoa.senha.trim();
 
       return repositorio.Alterar(id,pessoa)
     }
