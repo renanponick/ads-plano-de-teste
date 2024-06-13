@@ -10,12 +10,12 @@ class RepositorioExercicio {
         })
     }
 
-    async PegarTodos(){
-        return Pessoa.findAll()
+    async PegarTodos(transaction){
+        return Pessoa.findAll({transaction})
     }
 
-    async Adicionar(pessoa){
-        return Pessoa.create({ ...pessoa})
+    async Adicionar(pessoa, transaction){
+        return Pessoa.create({ ...pessoa}, { transaction })
     }
 
     async Alterar(id, pessoa){

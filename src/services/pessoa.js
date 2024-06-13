@@ -10,11 +10,12 @@ class ServicoExercicio {
       return repositorio.PegarUm(id)
     }
 
-    async PegarTodos(){
-      return repositorio.PegarTodos()
+    async PegarTodos(transaction){
+      return repositorio.PegarTodos(transaction)
     }
 
-    async Adicionar(pessoa){
+    
+    async Adicionar(pessoa, transaction){
       if(!pessoa) {
         throw new Error("Favor preencher o pessoa.")
       } else if(!pessoa.nome) {
@@ -23,9 +24,11 @@ class ServicoExercicio {
         throw new Error("Favor preencher o email.")
       } else if(!pessoa.senha) {
         throw new Error("Favor preencher o senha.")
+      } else if (/\d/.test(pessoa.nome)) {
+        throw new Error('Por favor, não use números no campo nome. Apenas letras são permitidas');
       }
 
-      return repositorio.Adicionar(pessoa)
+      return repositorio.Adicionar(pessoa, transaction)
     }
 
     async Alterar(id, pessoa){
