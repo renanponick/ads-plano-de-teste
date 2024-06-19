@@ -14,7 +14,7 @@ class ServicoExercicio {
       return repositorio.PegarTodos()
     }
 
-    async Adicionar(pessoa){
+    async Adicionar(pessoa, transaction){
       if(!pessoa) {
         throw new Error("Favor preencher o pessoa.")
       } else if(!pessoa.nome) {
@@ -25,7 +25,7 @@ class ServicoExercicio {
         throw new Error("Favor preencher o senha.")
       }
 
-      return repositorio.Adicionar(pessoa)
+      return repositorio.Adicionar(pessoa, transaction)
     }
 
     async Alterar(id, pessoa){
@@ -33,7 +33,7 @@ class ServicoExercicio {
         throw new Error("Favor corretamente o id.")
       }
 
-      return repositorio.Adicionar(pessoa)
+      return repositorio.Alterar(pessoa)
     }
 
     async Deletar(id){
