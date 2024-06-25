@@ -1,10 +1,10 @@
 const {describe, expect, it} = require('@jest/globals');
 const conexao = require('../../src/database');
 const ServicoExercicio = require('../../src/services/pessoa');
-const sequelize = require('../../src/models/pessoa')
+// const sequelize = require('../../src/models/pessoa')
 
 describe('Teste de Alterar pessoa', () => {
-    const serivco = new ServicoExercicio();
+    const servico = new ServicoExercicio();
 
     beforeAll(async () => {
         this.transaction = await conexao.transaction();
@@ -15,29 +15,25 @@ describe('Teste de Alterar pessoa', () => {
         console.info('Encerrando os testes')
     });
 
-    it('"O QA deverá informar por meio do ID, o usuário a ser alterado em todos os campos a serem alterados. id: 1', async () => {
-        const mock = { nome: 'joana', email: 'batata@123', senha: '1234'};
-        const mock_update = { nome: 'joana da silva', email: "mariasilva@gmail.com", senha: '123456789'};
+    it('Deve alterar uma pessoa por meio do nome', async () => {
+        const mockPessoa = {
+          nome: "Alice Da Cunha da Neta de Jesus",
+          email: "alicecunhajesus@gmail.com",
+          senha: "abacate123"
+        };
+      
+        const pessoaAdicionada = await servico.Adicionar(mockPessoa, this.transaction);
+        const nomeDaPessoa = mockPessoa.nome;
+      
+        const mockPessoaUpdate = {
+          email: "updated@domain.com",
+          senha: "update#password"
+        };
+      
+        const dataValue = await servico.Alterar(nomeDaPessoa, mockPessoaUpdate, this.transaction);
 
-        const transaction = await db.sequelize.transaction();
-
-        try {
-            const { dataValues: pessoaCriada } = await servico.Adicionar(mock, transaction);
-
-            // Atualizar a pessoa usando o serviço
-            const { dataValues: pessoaAtualizada } = await servico.Atualizar(pessoaCriada.id, mock_update, transaction);
-
-            // Verificações
-            expect(pessoaAtualizada.nome).toBe(mock_update.nome);
-            expect(pessoaAtualizada.email).toBe(mock_update.email);
-            expect(pessoaAtualizada.senha).toBe(mock_update.senha);
-
-            // Confirmar a transação
-            await transaction.commit();
-        } catch (error) {
-            // Reverter a transação em caso de erro
-            await transaction.rollback();
-            throw error;
-        }
-    })
+        expect(nomeDaPessoa).toBe(dataValue.dataValues.nome); // O nome não deve ter mudado
+        expect(mockPessoaUpdate.email).toBe(dataValue.dataValues.email);
+        expect(mockPessoaUpdate.senha).toBe(dataValue.dataValues.senha);
+    });       
 })

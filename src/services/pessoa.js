@@ -31,12 +31,12 @@ class ServicoExercicio {
       return repositorio.Adicionar(pessoa, transaction)
     }
 
-    async Alterar(id, pessoa){
+    async Alterar(id, pessoa, transaction){
       if(!id || isNaN(id)) {
         throw new Error("Favor corretamente o id.")
       }
 
-      return repositorio.Adicionar(pessoa)
+      return repositorio.Adicionar(id, pessoa, transaction)
     }
 
     async Deletar(id){

@@ -18,6 +18,10 @@ class RepositorioExercicio {
         return Pessoa.create({ ...pessoa}, { transaction })
     }
 
+    async BuscarPorNome(nome) {
+        return Pessoa.findOne({ where: { nome: nome } });
+    }
+
     async Alterar(id, pessoa){
         return Pessoa.update(pessoa, {
             where: {
