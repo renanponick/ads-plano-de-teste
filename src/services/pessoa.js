@@ -11,7 +11,8 @@ class ServicoExercicio {
     }
 
     async PegarTodos(transaction){
-      return repositorio.PegarTodos(transaction)
+      const pessoas = await repositorio.PegarTodos(transaction);
+      return pessoas;
     }
 
     
@@ -39,12 +40,11 @@ class ServicoExercicio {
       return repositorio.Adicionar(id, pessoa, transaction)
     }
 
-    async Deletar(id){
-      if(!id || isNaN(id)) {
-        throw new Error("Favor corretamente o id.")
+    async Deletar(id, transaction) {
+      if (!id || isNaN(id)) {
+          throw new Error("Favor informar um ID válido para deletar a pessoa.");
       }
-
-      return repositorio.Deletar(id)
+      return repositorio.Deletar(id, transaction);
     }
 
 }
