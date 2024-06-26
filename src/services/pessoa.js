@@ -15,33 +15,36 @@ class ServicoExercicio {
     }
 
     async Adicionar(pessoa, transaction){
-      if(!pessoa) {
-        throw new Error("Favor preencher o pessoa.")
-      } else if(!pessoa.nome) {
-        throw new Error("Favor preencher o nome.")
-      } else if(!pessoa.email) {
-        throw new Error("Favor preencher o email.")
-      } else if(!pessoa.senha) {
-        throw new Error("Favor preencher o senha.")
-      }
-
+      try{
+        if(!pessoa) {
+          throw new Error("Favor preencher o pessoa.")
+        } else if(!pessoa.nome) {
+          throw new Error("Favor preencher o nome.")
+        } else if(!pessoa.email) {
+          throw new Error("Favor preencher o email.")
+        } else if(!pessoa.senha) {
+          throw new Error("Favor preencher o senha.")
+        }
+      console.log(pessoa)
       return repositorio.Adicionar(pessoa, transaction)
+    } catch(e) {
+      console.log(e)
+    }
     }
 
-    async Alterar(id, pessoa){
+    async Alterar(id, pessoa, transaction){
+      if(!id || isNaN(id)) {
+        throw new Error("Favor corretamente o id.")
+      }
+      return repositorio.Alterar(id, pessoa, transaction)
+    }
+
+    async Deletar(id, transaction){
       if(!id || isNaN(id)) {
         throw new Error("Favor corretamente o id.")
       }
 
-      return repositorio.Alterar(pessoa)
-    }
-
-    async Deletar(id){
-      if(!id || isNaN(id)) {
-        throw new Error("Favor corretamente o id.")
-      }
-
-      return repositorio.Deletar(id)
+      return repositorio.Deletar(id, transaction)
     }
 
 }

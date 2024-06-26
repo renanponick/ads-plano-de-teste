@@ -44,9 +44,9 @@ class ControllerExercicio {
     async Alterar(req, res){
       try {
         const id = req.params.id
-        const nome = req.body.nome
+        const pessoa = req.body
     
-        await servico.Alterar(id, nome)
+        await servico.Alterar(id, pessoa)
           
         res.status(200).json({ message: "Alterado com sucesso!"});
       } catch (error) {

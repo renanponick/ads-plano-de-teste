@@ -18,19 +18,22 @@ class RepositorioExercicio {
         return Pessoa.create(pessoa, { transaction })
     }
 
-    async Alterar(id, pessoa){
-        return Pessoa.update(pessoa, {
+    async Alterar(id, pessoa, transaction){
+        const result = await Pessoa.update(pessoa, {
             where: {
                 id
-            }
+            },
+            transaction
         })
+        return result
     }
 
-    async Deletar(id){
+    async Deletar(id, transaction){
         return Pessoa.destroy({
             where: {
                 id
-            }
+            },
+            transaction
         })
     }
 
